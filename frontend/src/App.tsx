@@ -5,6 +5,7 @@ import Registration from './pages/Registration'
 import Login from './pages/Login'
 
 function App() {
+
   return (
     <Router>
       <div className="min-h-screen bg-secondary-white">
