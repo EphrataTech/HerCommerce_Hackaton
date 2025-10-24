@@ -28,6 +28,7 @@ docker-compose up
 
 ## Development
 
-- Frontend runs on http://localhost:3000
-- Backend runs on http://localhost:5000
-- API endpoints available at http://localhost:5000/api
+
+## Notes
+
+- Logo converted to inline/svg components to improve crispness and scaling.
