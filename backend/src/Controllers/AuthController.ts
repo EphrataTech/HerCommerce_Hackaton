@@ -171,3 +171,4 @@ export const signInWithGoogle = async (req: Request, res: Response) => {
         res.status(500).json({ error: "An unexpected error occurred during OAuth redirect." });
     }
 };
+
