@@ -1,9 +1,12 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ArrowLeft, Facebook, Instagram, ShoppingBag } from 'lucide-react'
+import { useUser } from '../context/UserContext'
 
 const Registration = () => {
   const [step, setStep] = useState(1)
+  const { setUserName } = useUser()
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     businessName: '',
     ownerName: '',
@@ -288,12 +291,15 @@ const Registration = () => {
                 >
                   Back
                 </button>
-                <Link
-                  to="/dashboard"
+                <button
+                  onClick={() => {
+                    setUserName(formData.ownerName)
+                    navigate('/dashboard')
+                  }}
                   className="flex-1 bg-primary-orange text-white py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors text-center"
                 >
                   Complete Registration
-                </Link>
+                </button>
               </div>
             </div>
           )}
