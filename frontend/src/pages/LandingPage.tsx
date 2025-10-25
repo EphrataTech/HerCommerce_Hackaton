@@ -105,12 +105,7 @@ export default function LandingPage() {
               >
                 Testimonials
               </a>
-              <a
-                href="#pricing"
-                className="text-sm transition hover:text-brand-soft-brown"
-              >
-                Pricing
-              </a>
+              
             </div>
 
             <div className="items-center hidden gap-4 md:flex">
