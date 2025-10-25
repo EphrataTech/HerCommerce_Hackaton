@@ -46,14 +46,14 @@ export default function LandingPage() {
 
   // Helper styles to match the original theme, adjusting 'brand-light-orange' 
   // to a more vibrant color (#ff8c00 - DarkOrange)
-  const brandColors = {
+  const brandColors: Record<string, string> = {
     'brand-charcoal': '#333333',
     'brand-soft-brown': '#6b5849',
     'brand-light-orange': '#ff8c00', // UPDATED: More vibrant orange
     'brand-deep-green': '#1e5f5f',
     'brand-soft-nude': '#e8d2c4',
   }
-  
+    
   // Note: To apply the new color class in the JSX, I'll update the inline style 
   // or use a new Tailwind class name if defined in a config file, but for 
   // simplicity and direct application, I'll stick with `bg-brand-light-orange` 
@@ -319,7 +319,7 @@ export default function LandingPage() {
               href={currentPartner.link}
               target="_blank"
               rel="noopener noreferrer"
-              className={`block w-full max-w-md h-56 rounded-xl shadow-lg transition-all duration-500 ease-in-out transform flex flex-col justify-center items-center p-8 text-white ${currentPartner.color}`}
+              className={` w-full max-w-md h-56 rounded-xl shadow-lg transition-all duration-500 ease-in-out transform flex flex-col justify-center items-center p-8 text-white ${currentPartner.color}`}
               style={{ 
                 opacity: 1, 
                 backgroundColor: brandColors[currentPartner.color.replace('bg-', '')] || currentPartner.color
