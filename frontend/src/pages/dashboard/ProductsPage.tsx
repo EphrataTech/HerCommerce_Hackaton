@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Plus, Edit2, Trash2, AlertCircle } from "lucide-react"
+import { AlertCircle } from "lucide-react"
 
 const initialProducts = [
   { id: 1, name: "Handmade Habesha Dress", quantity: 10, platform: "Tina Mart", status: "In Stock" },
@@ -16,21 +16,11 @@ export default function ProductsPage() {
   const [showModal, setShowModal] = useState(false)
   const [editingId, setEditingId] = useState<number | null>(null)
   const [formData, setFormData] = useState({ name: "", quantity: "", platform: "", status: "" })
+  const [selectedPlatform, setSelectedPlatform] = useState<string | null>(null)
 
   const handleAddProduct = () => {
     setEditingId(null)
     setFormData({ name: "", quantity: "", platform: "", status: "" })
-    setShowModal(true)
-  }
-
-  const handleEditProduct = (product: (typeof initialProducts)[0]) => {
-    setEditingId(product.id)
-    setFormData({
-      name: product.name,
-      quantity: product.quantity.toString(),
-      platform: product.platform,
-      status: product.status,
-    })
     setShowModal(true)
   }
 
@@ -47,27 +37,42 @@ export default function ProductsPage() {
     setShowModal(false)
   }
 
-  const handleDeleteProduct = (id: number) => {
-    setProducts(products.filter((p) => p.id !== id))
-  }
+  // deletion and editing in-row removed in this simplified UI
 
   const lowStockCount = products.filter((p) => p.status === "Low Stock").length
+  const platforms = Array.from(new Set(products.map((p) => p.platform)))
+
+  const displayed = selectedPlatform ? products.filter((p) => p.platform === selectedPlatform) : products
 
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-3xl font-bold text-[#333333]">My Stock</h2>
-          <p className="text-[#b2967d]">Manage your inventory across all platforms</p>
+      <div>
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-3xl font-bold text-[#333333]">AdeyBiz My Stock</h2>
+            <p className="text-[#b2967d]">Manage your inventory across all platforms</p>
+          </div>
         </div>
-        <button
-          onClick={handleAddProduct}
-          className="flex items-center gap-2 px-6 py-3 bg-[#f7c948] text-[#333333] rounded-lg hover:bg-[#e6b835] transition font-medium"
-        >
-          <Plus size={20} />
-          Add New Product
-        </button>
+
+        {/* Platform chips */}
+        <div className="mt-4 flex items-center gap-3">
+          <button
+            onClick={() => setSelectedPlatform(null)}
+            className={`px-3 py-1 rounded-lg text-sm ${selectedPlatform === null ? "bg-[#efe7df] text-[#6b4f33]" : "bg-[#f3ede8] text-[#6b4f33]"}`}
+          >
+            All
+          </button>
+          {platforms.map((plat) => (
+            <button
+              key={plat}
+              onClick={() => setSelectedPlatform(plat)}
+              className={`px-3 py-1 rounded-lg text-sm ${selectedPlatform === plat ? "bg-[#efe7df] text-[#6b4f33]" : "bg-[#f3ede8] text-[#6b4f33]"}`}
+            >
+              {plat}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Alerts */}
@@ -79,51 +84,46 @@ export default function ProductsPage() {
       )}
 
       {/* Products Table */}
-      <div className="bg-white rounded-2xl border border-[#e7d8c9] overflow-hidden">
+      <div className="bg-white rounded-2xl border border-[#e7d8c9] overflow-hidden mt-4 relative">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="bg-[#f8f4f0] border-b border-[#e7d8c9]">
-                <th className="text-left py-4 px-6 text-sm font-medium text-[#b2967d]">Product Name</th>
+              <tr className="bg-[#fffaf7] border-b border-[#efe7df]">
+                <th className="text-left py-4 px-6 text-sm font-medium text-[#b2967d]">Product Image</th>
+                <th className="text-left py-4 px-6 text-sm font-medium text-[#b2967d]">Name</th>
                 <th className="text-left py-4 px-6 text-sm font-medium text-[#b2967d]">Quantity</th>
                 <th className="text-left py-4 px-6 text-sm font-medium text-[#b2967d]">Platform</th>
                 <th className="text-left py-4 px-6 text-sm font-medium text-[#b2967d]">Status</th>
-                <th className="text-left py-4 px-6 text-sm font-medium text-[#b2967d]">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {products.map((product) => (
-                <tr key={product.id} className="border-b border-[#e7d8c9] hover:bg-[#f8f4f0] transition">
-                  <td className="py-4 px-6 text-[#333333] font-medium">{product.name}</td>
-                  <td className="py-4 px-6 text-[#f7c948] font-medium">{product.quantity}</td>
+              {displayed.map((product) => (
+                <tr key={product.id} className={`border-b border-[#efe7df] hover:bg-[#fffaf8] transition`}> 
+                  <td className="py-4 px-6">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#d9e8dd] to-[#bfe6c9] flex items-center justify-center">
+                      <span className="text-sm text-[#2d5235]">{product.name.split(" ").slice(0,2).map(s=>s[0]).join("")}</span>
+                    </div>
+                  </td>
+                  <td className="py-4 px-6 text-[#333333]">{product.name}</td>
+                  <td className="py-4 px-6 text-[#6b4f33] font-medium">{product.quantity}</td>
                   <td className="py-4 px-6 text-[#b2967d]">{product.platform}</td>
                   <td className="py-4 px-6">
-                    <span
-                      className={`px-3 py-1 rounded-full text-sm font-medium ${
-                        product.status === "In Stock" ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"
-                      }`}
-                    >
-                      {product.status}
-                    </span>
-                  </td>
-                  <td className="py-4 px-6 flex gap-2">
-                    <button
-                      onClick={() => handleEditProduct(product)}
-                      className="p-2 text-[#b2967d] hover:bg-[#e7d8c9] rounded transition"
-                    >
-                      <Edit2 size={18} />
-                    </button>
-                    <button
-                      onClick={() => handleDeleteProduct(product.id)}
-                      className="p-2 text-red-600 hover:bg-red-100 rounded transition"
-                    >
-                      <Trash2 size={18} />
-                    </button>
+                    <span className={`px-4 py-2 rounded-full text-sm font-medium bg-[#f3ede8] text-[#6b4f33]`}>{product.status}</span>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+
+        {/* Add New Product - floating bottom-right */}
+        <div className="absolute right-6 bottom-6">
+          <button
+            onClick={handleAddProduct}
+            className="px-4 py-2 bg-[#d97318] text-white rounded-md shadow-md hover:bg-[#c35f11] transition"
+          >
+            Add New Product
+          </button>
         </div>
       </div>
 
@@ -138,26 +138,26 @@ export default function ProductsPage() {
                 placeholder="Product Name"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full px-4 py-2 border border-[#e7d8c9] rounded-lg focus:outline-none focus:border-[#f7c948]"
+                className="w-full px-4 py-2 border border-[#e7d8c9] rounded-lg focus:outline-none focus:border-[var(--primary)]"
               />
               <input
                 type="number"
                 placeholder="Quantity"
                 value={formData.quantity}
                 onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
-                className="w-full px-4 py-2 border border-[#e7d8c9] rounded-lg focus:outline-none focus:border-[#f7c948]"
+                className="w-full px-4 py-2 border border-[#e7d8c9] rounded-lg focus:outline-none focus:border-[var(--primary)]"
               />
               <input
                 type="text"
                 placeholder="Platform"
                 value={formData.platform}
                 onChange={(e) => setFormData({ ...formData, platform: e.target.value })}
-                className="w-full px-4 py-2 border border-[#e7d8c9] rounded-lg focus:outline-none focus:border-[#f7c948]"
+                className="w-full px-4 py-2 border border-[#e7d8c9] rounded-lg focus:outline-none focus:border-[var(--primary)]"
               />
               <select
                 value={formData.status}
                 onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                className="w-full px-4 py-2 border border-[#e7d8c9] rounded-lg focus:outline-none focus:border-[#f7c948]"
+                className="w-full px-4 py-2 border border-[#e7d8c9] rounded-lg focus:outline-none focus:border-[var(--primary)]"
               >
                 <option value="">Select Status</option>
                 <option value="In Stock">In Stock</option>
@@ -173,9 +173,9 @@ export default function ProductsPage() {
               </button>
               <button
                 onClick={handleSaveProduct}
-                className="flex-1 px-4 py-2 bg-[#f7c948] text-[#333333] rounded-lg hover:bg-[#e6b835] transition font-medium"
+                className="px-4 py-2 bg-[#d97318] text-white rounded-md shadow-md hover:bg-[#c35f11] transition"
               >
-                Save
+                {editingId ? "Save Changes" : "Add New Product"}
               </button>
             </div>
           </div>
