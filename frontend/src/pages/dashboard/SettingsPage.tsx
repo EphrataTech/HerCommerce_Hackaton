@@ -66,7 +66,7 @@ export default function SettingsPage() {
             value={formData.firstName}
             onChange={handleChange}
             placeholder="First Name"
-            className="px-4 py-2 border border-[#e7d8c9] rounded-lg focus:outline-none focus:border-[#f7c948]"
+            className="px-4 py-2 border border-[#e7d8c9] rounded-lg focus:outline-none focus:border-[var(--primary)]"
           />
           <input
             type="text"
@@ -74,7 +74,7 @@ export default function SettingsPage() {
             value={formData.lastName}
             onChange={handleChange}
             placeholder="Last Name"
-            className="px-4 py-2 border border-[#e7d8c9] rounded-lg focus:outline-none focus:border-[#f7c948]"
+            className="px-4 py-2 border border-[#e7d8c9] rounded-lg focus:outline-none focus:border-[var(--primary)]"
           />
           <input
             type="email"
@@ -82,7 +82,7 @@ export default function SettingsPage() {
             value={formData.email}
             onChange={handleChange}
             placeholder="Email"
-            className="px-4 py-2 border border-[#e7d8c9] rounded-lg focus:outline-none focus:border-[#f7c948]"
+            className="px-4 py-2 border border-[#e7d8c9] rounded-lg focus:outline-none focus:border-[var(--primary)]"
           />
           <input
             type="tel"
@@ -90,7 +90,7 @@ export default function SettingsPage() {
             value={formData.phone}
             onChange={handleChange}
             placeholder="Phone"
-            className="px-4 py-2 border border-[#e7d8c9] rounded-lg focus:outline-none focus:border-[#f7c948]"
+            className="px-4 py-2 border border-[#e7d8c9] rounded-lg focus:outline-none focus:border-[var(--primary)]"
           />
         </div>
       </div>
@@ -105,13 +105,13 @@ export default function SettingsPage() {
             value={formData.businessName}
             onChange={handleChange}
             placeholder="Business Name"
-            className="w-full px-4 py-2 border border-[#e7d8c9] rounded-lg focus:outline-none focus:border-[#f7c948]"
+            className="w-full px-4 py-2 border border-[#e7d8c9] rounded-lg focus:outline-none focus:border-[var(--primary)]"
           />
           <select
             name="businessType"
             value={formData.businessType}
             onChange={handleChange}
-            className="w-full px-4 py-2 border border-[#e7d8c9] rounded-lg focus:outline-none focus:border-[#f7c948]"
+            className="w-full px-4 py-2 border border-[#e7d8c9] rounded-lg focus:outline-none focus:border-[var(--primary)]"
           >
             <option>Fashion & Retail</option>
             <option>E-commerce</option>
@@ -124,7 +124,7 @@ export default function SettingsPage() {
             value={formData.website}
             onChange={handleChange}
             placeholder="Website"
-            className="w-full px-4 py-2 border border-[#e7d8c9] rounded-lg focus:outline-none focus:border-[#f7c948]"
+            className="w-full px-4 py-2 border border-[#e7d8c9] rounded-lg focus:outline-none focus:border-[var(--primary)]"
           />
           <textarea
             name="bio"
@@ -132,7 +132,7 @@ export default function SettingsPage() {
             onChange={handleChange}
             placeholder="Business Bio"
             rows={4}
-            className="w-full px-4 py-2 border border-[#e7d8c9] rounded-lg focus:outline-none focus:border-[#f7c948]"
+            className="w-full px-4 py-2 border border-[#e7d8c9] rounded-lg focus:outline-none focus:border-[var(--primary)]"
           />
         </div>
       </div>
@@ -140,28 +140,38 @@ export default function SettingsPage() {
       {/* Notifications */}
       <div className="bg-white rounded-2xl border border-[#e7d8c9] p-6">
         <div className="flex items-center gap-2 mb-4">
-          <Bell className="text-[#f7c948]" size={20} />
+          <Bell className="text-[var(--primary)]" size={20} />
           <h3 className="text-lg font-bold text-[#333333]">Notification Preferences</h3>
         </div>
         <div className="space-y-3">
-          {notificationOptions.map((notif) => (
-            <div key={notif.key} className="flex items-center justify-between p-3 border border-[#e7d8c9] rounded-lg">
-              <label className="text-[#333333]">{notif.label}</label>
-              <input
-                type="checkbox"
-                checked={notifications[notif.key]}
-                onChange={() => handleNotificationChange(notif.key)}
-                className="w-5 h-5 cursor-pointer"
-              />
-            </div>
-          ))}
+          {notificationOptions.map((notif) => {
+            const isOn = notifications[notif.key]
+            return (
+              <div key={notif.key} className="flex items-center justify-between p-3 border border-[#e7d8c9] rounded-lg">
+                <label className="text-[#333333]">{notif.label}</label>
+                <button
+                  type="button"
+                  role="switch"
+                  aria-checked={isOn}
+                  onClick={() => handleNotificationChange(notif.key)}
+                  className={`w-12 h-7 flex items-center rounded-full p-1 transition-focus focus:outline-none ${
+                    isOn ? "bg-[var(--primary)]" : "bg-[#f3ede8]"
+                  }`}
+                >
+                  <span
+                    className={`bg-white w-5 h-5 rounded-full shadow transform transition ${isOn ? "translate-x-5" : "translate-x-0"}`}
+                  />
+                </button>
+              </div>
+            )
+          })}
         </div>
       </div>
 
       {/* Security */}
       <div className="bg-white rounded-2xl border border-[#e7d8c9] p-6">
         <div className="flex items-center gap-2 mb-4">
-          <Lock className="text-[#f7c948]" size={20} />
+          <Lock className="text-[var(--primary)]" size={20} />
           <h3 className="text-lg font-bold text-[#333333]">Security</h3>
         </div>
         <button className="px-6 py-2 border border-[#b2967d] text-[#b2967d] rounded-lg hover:bg-[#e7d8c9] transition font-medium">
@@ -171,7 +181,7 @@ export default function SettingsPage() {
 
       {/* Save Button */}
       <div className="flex justify-end">
-        <button className="flex items-center gap-2 px-6 py-3 bg-[#f7c948] text-[#333333] rounded-lg hover:bg-[#e6b835] transition font-medium">
+  <button className="flex items-center gap-2 px-6 py-3 bg-[var(--primary)] text-[#333333] rounded-lg hover:bg-[var(--primary-dark)] transition font-medium">
           <Save size={20} />
           Save Changes
         </button>

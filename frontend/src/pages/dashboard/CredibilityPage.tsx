@@ -41,7 +41,7 @@ export default function CredibilityPage() {
       </div>
 
       {/* Main Score Card */}
-      <div className="bg-gradient-to-br from-[#f7c948] to-[#e6b835] rounded-2xl p-8 text-[#333333]">
+  <div className="bg-gradient-to-br from-[var(--primary)] to-[var(--primary-dark)] rounded-2xl p-8 text-[#333333]">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-lg opacity-90 mb-2">Your Credibility Score</p>
@@ -62,7 +62,7 @@ export default function CredibilityPage() {
               <PolarGrid stroke="#e7d8c9" />
               <PolarAngleAxis dataKey="factor" stroke="#b2967d" />
               <PolarRadiusAxis stroke="#b2967d" />
-              <Radar name="Score" dataKey="value" stroke="#f7c948" fill="#f7c948" fillOpacity={0.6} />
+              <Radar name="Score" dataKey="value" stroke="var(--primary)" fill="var(--primary)" fillOpacity={0.6} />
             </RadarChart>
           </ResponsiveContainer>
         </div>
@@ -76,7 +76,7 @@ export default function CredibilityPage() {
               <XAxis dataKey="month" stroke="#b2967d" />
               <YAxis stroke="#b2967d" />
               <Tooltip contentStyle={{ backgroundColor: "#f8f4f0", border: "1px solid #e7d8c9" }} />
-              <Line type="monotone" dataKey="score" stroke="#f7c948" strokeWidth={2} />
+              <Line type="monotone" dataKey="score" stroke="var(--primary)" strokeWidth={2} />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -116,7 +116,7 @@ export default function CredibilityPage() {
             "Complete your business profile information",
           ].map((rec, idx) => (
             <div key={idx} className="flex gap-3 p-3 bg-[#f8f4f0] rounded-lg">
-              <CheckCircle className="text-[#f7c948] flex-shrink-0" size={20} />
+              <CheckCircle className="text-[var(--primary)] flex-shrink-0" size={20} />
               <p className="text-[#333333] text-sm">{rec}</p>
             </div>
           ))}

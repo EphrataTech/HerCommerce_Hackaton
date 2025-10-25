@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Outlet, Link, useLocation } from "react-router-dom"
 import { Menu, X, LogOut, Settings, Home, Package, Zap, Award, DollarSign } from "lucide-react"
+import { useUser } from "../context/UserContext"
 
 export default function DashboardLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
@@ -18,6 +19,26 @@ export default function DashboardLayout() {
   ]
 
   const isActive = (path: string) => location.pathname === path
+  const { userName } = useUser()
+  const registeredRaw = typeof window !== 'undefined' ? localStorage.getItem('adeyBizRegisteredUser') : null
+  let businessName: string | undefined = undefined
+  if (registeredRaw) {
+    try {
+      const parsed = JSON.parse(registeredRaw)
+      businessName = parsed.businessName
+    } catch (e) {
+      businessName = undefined
+    }
+  }
+
+  const initials = userName
+    ? userName
+        .split(" ")
+        .map((s) => s[0])
+        .slice(0, 2)
+        .join("")
+        .toUpperCase()
+    : "U"
 
   return (
     <div className="flex h-screen bg-white">
@@ -45,13 +66,13 @@ export default function DashboardLayout() {
         {/* User Profile */}
         <div className="p-4 border-b border-[#e7d8c9]">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#f7c948] rounded-full flex items-center justify-center flex-shrink-0">
-              <span className="text-[#333333] font-bold">SC</span>
+              <div className="w-10 h-10 bg-[var(--primary)] rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-[#333333] font-bold">{initials}</span>
             </div>
             {sidebarOpen && (
               <div className="min-w-0">
-                <p className="text-sm font-medium text-[#333333] truncate">Sophia Carter</p>
-                <p className="text-xs text-[#b2967d] truncate">Fashion Designer</p>
+                <p className="text-sm font-medium text-[#333333] truncate">{userName}</p>
+                <p className="text-xs text-[#b2967d] truncate">{businessName || "Seller"}</p>
               </div>
             )}
           </div>
@@ -64,7 +85,7 @@ export default function DashboardLayout() {
               key={item.path}
               to={item.path}
               className={`flex items-center gap-3 px-4 py-3 rounded-lg transition ${
-                isActive(item.path) ? "bg-[#f7c948] text-[#333333]" : "text-[#b2967d] hover:bg-[#e7d8c9]"
+                isActive(item.path) ? "bg-[var(--primary)] text-[#333333]" : "text-[#b2967d] hover:bg-[#e7d8c9]"
               }`}
             >
               <item.icon size={20} />
@@ -88,7 +109,7 @@ export default function DashboardLayout() {
         <div className="bg-white border-b border-[#e7d8c9] px-8 py-4 flex items-center justify-between">
           <h1 className="text-2xl font-bold text-[#333333]">Dashboard</h1>
           <div className="flex items-center gap-4">
-            <button className="w-10 h-10 bg-[#f7c948] rounded-full flex items-center justify-center text-[#333333] font-bold">
+            <button className="w-10 h-10 bg-[var(--primary)] rounded-full flex items-center justify-center text-[#333333] font-bold">
               SC
             </button>
           </div>
