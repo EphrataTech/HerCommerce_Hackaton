@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
 import { 
   BarChart3, 
-  TrendingUp, 
-  Users, 
   Star, 
   Bell, 
   Settings, 
@@ -12,11 +10,7 @@ import {
   MessageSquare,
   Heart,
   Share2,
-  RefreshCw,
-  Copy,
-  ExternalLink,
   DollarSign,
-  Calendar,
   Clock
 } from 'lucide-react'
 import { useUser } from '../context/UserContext'
@@ -28,7 +22,7 @@ const Dashboard = () => {
   const [showCreatePost, setShowCreatePost] = useState(false)
   const { userName } = useUser()
 
-  const [stats, setStats] = useState({
+  const [stats] = useState({
     views: 12500,
     engagement: 3200,
     messages: 47,
