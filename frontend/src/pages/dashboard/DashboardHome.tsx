@@ -1,4 +1,3 @@
-import { TrendingUp, Users, Award, ShoppingCart } from "lucide-react"
 import {
   LineChart,
   Line,
@@ -7,11 +6,6 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  RadarChart,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-  Radar,
 } from "recharts"
 
 const revenueData = [
@@ -23,128 +17,86 @@ const revenueData = [
   { month: "Jun", revenue: 2390 },
 ]
 
-const credibilityData = [
-  { factor: "Social Proof", value: 85 },
-  { factor: "Reviews", value: 90 },
-  { factor: "Engagement", value: 75 },
-  { factor: "Verification", value: 80 },
-  { factor: "Activity", value: 88 },
-]
-
 export default function DashboardHome() {
   return (
     <div className="space-y-8">
-      {/* Welcome Section */}
-      <div>
-        <h2 className="text-3xl font-bold text-[#333333] mb-2">Welcome back, Sophia</h2>
-        <p className="text-[#b2967d]">Here's your business overview for today</p>
-      </div>
-
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {[
-          {
-            icon: TrendingUp,
-            label: "Total Sales",
-            value: "$12,500",
-            change: "+12%",
-            color: "text-[#f7c948]",
-          },
-          {
-            icon: ShoppingCart,
-            label: "Orders",
-            value: "320",
-            change: "-5%",
-            color: "text-[#b2967d]",
-          },
-          {
-            icon: Users,
-            label: "Customers",
-            value: "1,240",
-            change: "+8%",
-            color: "text-[#f7c948]",
-          },
-          {
-            icon: Award,
-            label: "Credibility Score",
-            value: "75%",
-            change: "+3%",
-            color: "text-[#b2967d]",
-          },
-        ].map((stat, idx) => (
-          <div key={idx} className="bg-white p-6 rounded-2xl border border-[#e7d8c9] hover:shadow-lg transition">
-            <div className="flex items-center justify-between mb-4">
-              <stat.icon className={`${stat.color} w-8 h-8`} />
-              <span
-                className={`text-sm font-medium ${stat.change.startsWith("+") ? "text-green-600" : "text-red-600"}`}
-              >
-                {stat.change}
-              </span>
-            </div>
-            <p className="text-[#b2967d] text-sm mb-1">{stat.label}</p>
-            <p className="text-2xl font-bold text-[#333333]">{stat.value}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Revenue Chart */}
-        <div className="bg-white p-6 rounded-2xl border border-[#e7d8c9]">
-          <h3 className="text-lg font-bold text-[#333333] mb-4">Revenue Trend</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={revenueData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e7d8c9" />
-              <XAxis dataKey="month" stroke="#b2967d" />
-              <YAxis stroke="#b2967d" />
-              <Tooltip contentStyle={{ backgroundColor: "#f8f4f0", border: "1px solid #e7d8c9" }} />
-              <Line type="monotone" dataKey="revenue" stroke="#f7c948" strokeWidth={2} />
-            </LineChart>
-          </ResponsiveContainer>
+      {/* Welcome */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#111827]">Welcome back, Selam</h2>
+          <p className="text-[#b2967d]">Here's a quick snapshot of your business</p>
         </div>
+      </div>
 
-        {/* Credibility Radar */}
-        <div className="bg-white p-6 rounded-2xl border border-[#e7d8c9]">
-          <h3 className="text-lg font-bold text-[#333333] mb-4">Credibility Factors</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <RadarChart data={credibilityData}>
-              <PolarGrid stroke="#e7d8c9" />
-              <PolarAngleAxis dataKey="factor" stroke="#b2967d" />
-              <PolarRadiusAxis stroke="#b2967d" />
-              <Radar name="Score" dataKey="value" stroke="#f7c948" fill="#f7c948" fillOpacity={0.6} />
-            </RadarChart>
+      {/* Total Sales banner */}
+      <div className="bg-[#f3ede8] rounded-2xl p-6 border border-[#efe7df] shadow-sm">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-sm text-[#6b4f33]">Total Sales</p>
+            <div className="text-3xl md:text-4xl font-extrabold text-[#111827] mt-2">12,500 ETB</div>
+          </div>
+          <div className="text-sm text-[#6b4f33]">&nbsp;</div>
+        </div>
+      </div>
+
+      {/* Engagement Trends */}
+      <div className="bg-white p-6 rounded-2xl border border-[#e7d8c9]">
+        <h3 className="text-xl font-bold text-[#111827] mb-4">Engagement Trends</h3>
+        <div className="text-sm text-[#6b4f33] mb-6">Engagement Trends</div>
+        <div style={{ height: 220 }} className="w-full">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart data={revenueData} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#f1e9e2" />
+              <XAxis dataKey="month" stroke="#b2967d" />
+              <YAxis hide />
+              <Tooltip contentStyle={{ backgroundColor: "#fff", border: "1px solid #efe7df" }} />
+              <Line type="monotone" dataKey="revenue" stroke="#A16207" strokeWidth={3} dot={false} />
+            </LineChart>
           </ResponsiveContainer>
         </div>
       </div>
 
       {/* Sales Channels */}
       <div className="bg-white p-6 rounded-2xl border border-[#e7d8c9]">
-        <h3 className="text-lg font-bold text-[#333333] mb-4">Sales Channels</h3>
+        <h3 className="text-lg font-bold text-[#111827] mb-4">Sales Channels</h3>
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full table-auto">
             <thead>
-              <tr className="border-b border-[#e7d8c9]">
-                <th className="text-left py-3 px-4 text-sm font-medium text-[#b2967d]">Channel</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-[#b2967d]">Sales</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-[#b2967d]">Orders</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-[#b2967d]">AOV</th>
+              <tr className="text-left text-sm text-[#b2967d] border-b border-[#efe7df]">
+                <th className="py-4 px-4">Channel</th>
+                <th className="py-4 px-4">Sales</th>
+                <th className="py-4 px-4">Orders</th>
+                <th className="py-4 px-4">Revenue</th>
               </tr>
             </thead>
             <tbody>
               {[
-                { channel: "Online Store", sales: "$6,250", orders: "160", aov: "$38.06" },
-                { channel: "Social Media", sales: "$2,750", orders: "80", aov: "$45.88" },
-                { channel: "Marketplace", sales: "$2,500", orders: "80", aov: "$31.25" },
+                { channel: "Social Media", sales: "500", orders: "100", revenue: "2,500 ETB" },
+                { channel: "E-commerce Platform", sales: "1,000", orders: "200", revenue: "5,000 ETB" },
+                { channel: "Direct Sales", sales: "200", orders: "50", revenue: "1,000 ETB" },
+                { channel: "Affiliate Marketing", sales: "300", orders: "75", revenue: "1,500 ETB" },
+                { channel: "Email Marketing", sales: "500", orders: "125", revenue: "2,500 ETB" },
               ].map((row, idx) => (
-                <tr key={idx} className="border-b border-[#e7d8c9] hover:bg-[#f8f4f0]">
-                  <td className="py-3 px-4 text-[#333333]">{row.channel}</td>
-                  <td className="py-3 px-4 text-[#f7c948] font-medium">{row.sales}</td>
-                  <td className="py-3 px-4 text-[#333333]">{row.orders}</td>
-                  <td className="py-3 px-4 text-[#b2967d]">{row.aov}</td>
+                <tr key={idx} className={`border-b border-[#f1e9e2] ${idx % 2 === 0 ? "bg-white" : "bg-[transparent]"}`}>
+                  <td className="py-4 px-4 text-[#111827] font-medium">{row.channel}</td>
+                  <td className="py-4 px-4 text-[#6b4f33]">{row.sales}</td>
+                  <td className="py-4 px-4 text-[#111827]">{row.orders}</td>
+                  <td className="py-4 px-4 text-[#6b4f33] font-semibold">{row.revenue}</td>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+
+        {/* AdeyBiz Score */}
+        <div className="mt-6">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-sm text-[#111827]">AdeyBiz Score</span>
+            <span className="text-sm text-[#6b4f33]">60%</span>
+          </div>
+          <div className="w-full bg-[#f1e9e2] rounded-full h-3">
+            <div className="bg-[#f7c948] h-3 rounded-full" style={{ width: '60%' }} />
+          </div>
         </div>
       </div>
     </div>
