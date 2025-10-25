@@ -18,7 +18,7 @@ export default {
           mediumGray: '#6B7280',
         },
         accent: {
-          gold: '#FBBF24',
+          gold: '#e7d8c9',
           brown: '#A16207',
         }
       }
