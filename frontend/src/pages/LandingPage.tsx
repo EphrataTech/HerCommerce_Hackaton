@@ -42,7 +42,7 @@ export default function LandingPage() {
               </Link>
               <Link
                 to="/register"
-                className="px-6 py-2 bg-[#f7c948] text-[#333333] rounded-lg hover:bg-[#e6b835] transition font-medium"
+                className="px-6 py-2 bg-[var(--primary)] text-[#333333] rounded-lg hover:bg-[var(--primary-dark)] transition font-medium"
               >
                 Get Started
               </Link>
@@ -71,7 +71,7 @@ export default function LandingPage() {
               <Link to="/login" className="block px-4 py-2 text-[#333333] hover:bg-[#e7d8c9] rounded">
                 Login
               </Link>
-              <Link to="/register" className="block px-4 py-2 bg-[#f7c948] text-[#333333] rounded">
+              <Link to="/register" className="block px-4 py-2 bg-[var(--primary)] text-[#333333] rounded">
                 Get Started
               </Link>
             </div>
@@ -94,7 +94,7 @@ export default function LandingPage() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
                   to="/register"
-                  className="px-8 py-3 bg-[#f7c948] text-[#333333] rounded-lg hover:bg-[#e6b835] transition font-medium text-center flex items-center justify-center gap-2"
+                  className="px-8 py-3 bg-[var(--primary)] text-[#333333] rounded-lg hover:bg-[var(--primary-dark)] transition font-medium text-center flex items-center justify-center gap-2"
                 >
                   Start Free Trial
                   <ArrowRight className="w-4 h-4" />
@@ -108,7 +108,7 @@ export default function LandingPage() {
             {/* Hero Image */}
             <div className="relative h-96 md:h-full">
               <div className="absolute inset-0 bg-gradient-to-br from-[#e7d8c9] to-[#b2967d] rounded-3xl opacity-20"></div>
-              <div className="absolute top-10 right-10 w-40 h-40 bg-[#f7c948] rounded-full opacity-20 blur-3xl"></div>
+              <div className="absolute top-10 right-10 w-40 h-40 bg-[var(--primary)] rounded-full opacity-20 blur-3xl"></div>
               <div className="absolute bottom-10 left-10 w-32 h-32 bg-[#b2967d] rounded-full opacity-20 blur-3xl"></div>
               <div className="relative h-full flex items-center justify-center">
                 <div className="text-center">
@@ -157,7 +157,7 @@ export default function LandingPage() {
               },
             ].map((feature, idx) => (
               <div key={idx} className="bg-white p-8 rounded-2xl border border-[#e7d8c9] hover:shadow-lg transition">
-                <div className="text-[#f7c948] mb-4">{feature.icon}</div>
+                <div className="text-[var(--primary)] mb-4">{feature.icon}</div>
                 <h3 className="text-xl font-bold text-[#333333] mb-3">{feature.title}</h3>
                 <p className="text-[#b2967d]">{feature.description}</p>
               </div>
@@ -186,7 +186,7 @@ export default function LandingPage() {
               {
                 step: "2",
                 title: "Connect Accounts",
-                description: "Link your social media and e-commerce platforms",
+                description: "Link your social media and e-commerce platforms for unified management",
               },
               {
                 step: "3",
@@ -199,17 +199,12 @@ export default function LandingPage() {
                 description: "Get matched with investors and funding opportunities",
               },
             ].map((item, idx) => (
-              <div key={idx} className="relative">
-                <div className="flex flex-col items-center text-center">
-                  <div className="w-16 h-16 bg-[#f7c948] text-[#333333] rounded-full flex items-center justify-center text-2xl font-bold mb-4">
-                    {item.step}
-                  </div>
-                  <h3 className="text-lg font-bold text-[#333333] mb-2">{item.title}</h3>
-                  <p className="text-[#b2967d] text-sm">{item.description}</p>
+              <div key={idx} className="bg-white p-6 rounded-2xl border border-[#e7d8c9] text-center">
+                <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-[var(--primary)] text-white flex items-center justify-center font-bold">
+                  {item.step}
                 </div>
-                {idx < 3 && (
-                  <div className="hidden md:block absolute top-8 -right-4 w-8 h-0.5 bg-[#f7c948] opacity-20"></div>
-                )}
+                <h3 className="text-lg font-bold text-[#333333] mb-2">{item.title}</h3>
+                <p className="text-[#b2967d] text-sm">{item.description}</p>
               </div>
             ))}
           </div>
@@ -248,7 +243,7 @@ export default function LandingPage() {
               <div key={idx} className="bg-white p-8 rounded-2xl border border-[#e7d8c9]">
                 <div className="flex gap-1 mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-[#f7c948] text-[#f7c948]" />
+                    <Star key={i} className="w-5 h-5 fill-[var(--primary)] text-[var(--primary)]" />
                   ))}
                 </div>
                 <p className="text-[#b2967d] mb-6 leading-relaxed">"{testimonial.text}"</p>
