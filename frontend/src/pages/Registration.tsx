@@ -46,45 +46,45 @@ const Registration = () => {
   return (
     <div className="min-h-screen bg-secondary-lightGray">
       {/* Header */}
-      <header className="bg-secondary-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
+      <header className="shadow-sm bg-secondary-white">
+        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between py-4">
             <Link to="/" className="flex items-center">
-              <img src="/logo.png" alt="AdeyBiz" className="h-10 w-auto" />
+              <img src="/logo.png" alt="AdeyBiz" className="w-auto h-10" />
               <span className="ml-3 text-2xl font-bold text-primary-black">AdeyBiz</span>
             </Link>
             <Link to="/" className="flex items-center text-secondary-mediumGray hover:text-primary-black">
-              <ArrowLeft className="h-4 w-4 mr-2" />
+              <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Home
             </Link>
           </div>
         </div>
       </header>
 
-      <div className="max-w-2xl mx-auto px-4 py-12">
+      <div className="max-w-2xl px-4 py-12 mx-auto">
         {/* Progress Bar */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
             <span className="text-sm font-medium text-primary-black">Step {step} of 3</span>
             <span className="text-sm text-secondary-mediumGray">{Math.round((step / 3) * 100)}% Complete</span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
+          <div className="w-full h-2 bg-gray-200 rounded-full">
             <div 
-              className="bg-primary-orange h-2 rounded-full transition-all duration-300"
+              className="h-2 transition-all duration-300 rounded-full bg-primary-orange"
               style={{ width: `${(step / 3) * 100}%` }}
             ></div>
           </div>
         </div>
 
-        <div className="bg-secondary-white rounded-lg shadow-lg p-8">
+        <div className="p-8 rounded-lg shadow-lg bg-secondary-white">
           {step === 1 && (
             <div>
-              <h2 className="text-3xl font-bold text-primary-black mb-2">Business Information</h2>
-              <p className="text-secondary-mediumGray mb-8">Tell us about your business</p>
+              <h2 className="mb-2 text-3xl font-bold text-primary-black">Business Information</h2>
+              <p className="mb-8 text-secondary-mediumGray">Tell us about your business</p>
               
               <div className="space-y-6">
                 <div>
-                  <label className="block text-sm font-medium text-primary-black mb-2">
+                  <label className="block mb-2 text-sm font-medium text-primary-black">
                     Business Name *
                   </label>
                   <input
@@ -97,7 +97,7 @@ const Registration = () => {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-primary-black mb-2">
+                  <label className="block mb-2 text-sm font-medium text-primary-black">
                     Your Name *
                   </label>
                   <input
@@ -109,9 +109,9 @@ const Registration = () => {
                   />
                 </div>
                 
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid gap-4 md:grid-cols-2">
                   <div>
-                    <label className="block text-sm font-medium text-primary-black mb-2">
+                    <label className="block mb-2 text-sm font-medium text-primary-black">
                       Email *
                     </label>
                     <input
@@ -124,7 +124,7 @@ const Registration = () => {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-primary-black mb-2">
+                    <label className="block mb-2 text-sm font-medium text-primary-black">
                       Phone Number *
                     </label>
                     <input
@@ -138,7 +138,7 @@ const Registration = () => {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-primary-black mb-2">
+                  <label className="block mb-2 text-sm font-medium text-primary-black">
                     Business Type *
                   </label>
                   <select
@@ -159,7 +159,7 @@ const Registration = () => {
               
               <button
                 onClick={() => setStep(2)}
-                className="w-full mt-8 bg-primary-orange text-white py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors"
+                className="w-full py-3 mt-8 font-semibold text-white transition-colors rounded-lg bg-primary-orange hover:bg-orange-600"
               >
                 Continue
               </button>
@@ -168,13 +168,13 @@ const Registration = () => {
 
           {step === 2 && (
             <div>
-              <h2 className="text-3xl font-bold text-primary-black mb-2">Connect Social Media</h2>
-              <p className="text-secondary-mediumGray mb-8">Link your existing social media accounts</p>
+              <h2 className="mb-2 text-3xl font-bold text-primary-black">Connect Social Media</h2>
+              <p className="mb-8 text-secondary-mediumGray">Link your existing social media accounts</p>
               
               <div className="space-y-6">
                 <div>
-                  <label className="block text-sm font-medium text-primary-black mb-2 flex items-center">
-                    <Facebook className="h-5 w-5 mr-2 text-blue-600" />
+                  <label className="flex items-center block mb-2 text-sm font-medium text-primary-black">
+                    <Facebook className="w-5 h-5 mr-2 text-blue-600" />
                     Facebook Page
                   </label>
                   <input
@@ -187,8 +187,8 @@ const Registration = () => {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-primary-black mb-2 flex items-center">
-                    <Instagram className="h-5 w-5 mr-2 text-pink-600" />
+                  <label className="flex items-center block mb-2 text-sm font-medium text-primary-black">
+                    <Instagram className="w-5 h-5 mr-2 text-pink-600" />
                     Instagram
                   </label>
                   <input
@@ -201,7 +201,7 @@ const Registration = () => {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-primary-black mb-2">
+                  <label className="block mb-2 text-sm font-medium text-primary-black">
                     TikTok
                   </label>
                   <input
@@ -214,7 +214,7 @@ const Registration = () => {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-primary-black mb-2">
+                  <label className="block mb-2 text-sm font-medium text-primary-black">
                     Telegram Channel
                   </label>
                   <input
@@ -227,16 +227,16 @@ const Registration = () => {
                 </div>
               </div>
               
-              <div className="flex space-x-4 mt-8">
+              <div className="flex mt-8 space-x-4">
                 <button
                   onClick={() => setStep(1)}
-                  className="flex-1 border-2 border-primary-orange text-primary-orange py-3 rounded-lg font-semibold hover:bg-primary-orange hover:text-white transition-colors"
+                  className="flex-1 py-3 font-semibold transition-colors border-2 rounded-lg border-primary-orange text-primary-orange hover:bg-primary-orange hover:text-white"
                 >
                   Back
                 </button>
                 <button
                   onClick={() => setStep(3)}
-                  className="flex-1 bg-primary-orange text-white py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors"
+                  className="flex-1 py-3 font-semibold text-white transition-colors rounded-lg bg-primary-orange hover:bg-orange-600"
                 >
                   Continue
                 </button>
@@ -246,13 +246,13 @@ const Registration = () => {
 
           {step === 3 && (
             <div>
-              <h2 className="text-3xl font-bold text-primary-black mb-2">E-commerce Integration</h2>
-              <p className="text-secondary-mediumGray mb-8">Connect your online stores</p>
+              <h2 className="mb-2 text-3xl font-bold text-primary-black">E-commerce Integration</h2>
+              <p className="mb-8 text-secondary-mediumGray">Connect your online stores</p>
               
               <div className="space-y-6">
                 <div>
-                  <label className="block text-sm font-medium text-primary-black mb-2 flex items-center">
-                    <ShoppingBag className="h-5 w-5 mr-2 text-green-600" />
+                  <label className="flex items-center block mb-2 text-sm font-medium text-primary-black">
+                    <ShoppingBag className="w-5 h-5 mr-2 text-green-600" />
                     Jumia Store
                   </label>
                   <input
@@ -265,7 +265,7 @@ const Registration = () => {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-primary-black mb-2">
+                  <label className="block mb-2 text-sm font-medium text-primary-black">
                     Other E-commerce Platform
                   </label>
                   <input
@@ -278,16 +278,16 @@ const Registration = () => {
                 </div>
               </div>
               
-              <div className="bg-accent-gold/10 border border-accent-gold/20 rounded-lg p-4 mt-6">
+              <div className="p-4 mt-6 border rounded-lg bg-accent-gold/10 border-accent-gold/20">
                 <p className="text-sm text-accent-brown">
                   <strong>Note:</strong> You can skip this step and add e-commerce accounts later from your dashboard.
                 </p>
               </div>
               
-              <div className="flex space-x-4 mt-8">
+              <div className="flex mt-8 space-x-4">
                 <button
                   onClick={() => setStep(2)}
-                  className="flex-1 border-2 border-primary-orange text-primary-orange py-3 rounded-lg font-semibold hover:bg-primary-orange hover:text-white transition-colors"
+                  className="flex-1 py-3 font-semibold transition-colors border-2 rounded-lg border-primary-orange text-primary-orange hover:bg-primary-orange hover:text-white"
                 >
                   Back
                 </button>
@@ -296,7 +296,7 @@ const Registration = () => {
                     setUserName(formData.ownerName)
                     navigate('/dashboard')
                   }}
-                  className="flex-1 bg-primary-orange text-white py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors text-center"
+                  className="flex-1 py-3 font-semibold text-center text-white transition-colors rounded-lg bg-primary-orange hover:bg-orange-600"
                 >
                   Complete Registration
                 </button>
