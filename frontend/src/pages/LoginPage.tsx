@@ -5,18 +5,37 @@ import type React from "react"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { Eye, EyeOff } from "lucide-react"
+import { useUser } from "../context/UserContext"
 
 export default function LoginPage({ setIsAuthenticated }: { setIsAuthenticated: (value: boolean) => void }) {
   const [showPassword, setShowPassword] = useState(false)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const navigate = useNavigate()
+  const { setUserName } = useUser()
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault()
     if (email && password) {
-      setIsAuthenticated(true)
-      navigate("/dashboard")
+      // Validate against registered user in localStorage
+      const raw = localStorage.getItem('adeyBizRegisteredUser')
+      if (!raw) {
+        alert('No registered user found. Please register first.')
+        return
+      }
+      try {
+        const reg = JSON.parse(raw) as { email?: string; password?: string; name?: string }
+        if (reg.email !== email || reg.password !== password) {
+          alert('Invalid credentials. Please check your email and password or register first.')
+          return
+        }
+        // success
+        setUserName(reg.name || email.split('@')[0])
+        setIsAuthenticated(true)
+        navigate('/dashboard')
+      } catch (err) {
+        alert('Error reading registration data. Please register again.')
+      }
     }
   }
 

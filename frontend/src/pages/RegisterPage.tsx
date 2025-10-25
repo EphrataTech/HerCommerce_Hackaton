@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import { useUser } from "../context/UserContext"
 import { Eye, EyeOff } from "lucide-react"
 
 export default function RegisterPage({ setIsAuthenticated }: { setIsAuthenticated: (value: boolean) => void }) {
@@ -17,6 +18,7 @@ export default function RegisterPage({ setIsAuthenticated }: { setIsAuthenticate
     agreeToTerms: false,
   })
   const navigate = useNavigate()
+  const { setUserName } = useUser()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target
@@ -29,6 +31,11 @@ export default function RegisterPage({ setIsAuthenticated }: { setIsAuthenticate
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault()
     if (formData.name && formData.email && formData.password && formData.agreeToTerms) {
+      // persist registered user locally (demo only)
+      const stored = { name: formData.name, email: formData.email, password: formData.password, businessName: formData.businessName }
+      localStorage.setItem('adeyBizRegisteredUser', JSON.stringify(stored))
+      // set user context for display
+      setUserName(formData.name)
       setIsAuthenticated(true)
       navigate("/dashboard")
     }
