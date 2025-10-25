@@ -4,7 +4,10 @@
     // File Layout
     // "rootDir": "./src",
     // "outDir": "./dist",
-
+//
+    
+    // Resolves the implicit 'any' type error for JS files
+    "esModuleInterop": true,
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
     "module": "nodenext",

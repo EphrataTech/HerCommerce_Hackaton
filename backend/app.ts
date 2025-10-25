@@ -2,7 +2,11 @@
 
 import express, { type Application } from 'express';
 import cors from 'cors';
+
 import authRoutes from './src/routes/auth.js'; // Note the .js extension
+
+// ADDED: Import the AI Marketing route
+import aiMarketingRoutes from './src/routes/aiMarketingRoutes.js'; 
 
 const app: Application = express();
 
@@ -26,6 +30,8 @@ app.get('/', (req, res) => {
 // Mount the authentication routes under the '/api/v1/auth' path
 app.use('/api/v1/auth', authRoutes);
 
+// ADDED: Mount the AI Marketing routes under the '/api/v1/ai-marketing' path
+app.use('/api/v1/ai-marketing', aiMarketingRoutes); 
 
 // Global Error Handler (Optional but recommended)
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
