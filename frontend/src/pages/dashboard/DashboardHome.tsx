@@ -7,6 +7,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts"
+import { useUser } from "../../context/UserContext"
 
 const revenueData = [
   { month: "Jan", revenue: 4000 },
@@ -18,12 +19,13 @@ const revenueData = [
 ]
 
 export default function DashboardHome() {
+  const { userName } = useUser()
   return (
     <div className="space-y-8">
       {/* Welcome */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#111827]">Welcome back, Selam</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#111827]">Welcome back, {userName}</h2>
           <p className="text-[#b2967d]">Here's a quick snapshot of your business</p>
         </div>
       </div>
@@ -95,7 +97,7 @@ export default function DashboardHome() {
             <span className="text-sm text-[#6b4f33]">60%</span>
           </div>
           <div className="w-full bg-[#f1e9e2] rounded-full h-3">
-            <div className="bg-[#f7c948] h-3 rounded-full" style={{ width: '60%' }} />
+            <div className="bg-[var(--primary)] h-3 rounded-full" style={{ width: '60%' }} />
           </div>
         </div>
       </div>
