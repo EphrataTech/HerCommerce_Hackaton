@@ -1,13 +1,38 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Outlet, Link, useLocation } from "react-router-dom"
-import { Menu, X, LogOut, Settings, Home, Package, Zap, Award, DollarSign } from "lucide-react"
+import { Menu, X, LogOut, Settings, Home, Package, Zap, Award, DollarSign, Link2 } from "lucide-react"
 import { useUser } from "../context/UserContext"
 
 export default function DashboardLayout() {
-  const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+  const sidebarRef = useRef<HTMLDivElement>(null)
   const location = useLocation()
+
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 768
+      setIsMobile(mobile)
+      setSidebarOpen(!mobile)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isMobile && sidebarOpen && sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+        setSidebarOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [isMobile, sidebarOpen])
 
   const navItems = [
     { icon: Home, label: "Home", path: "/dashboard" },
@@ -15,6 +40,7 @@ export default function DashboardLayout() {
     { icon: Zap, label: "Marketing", path: "/dashboard/marketing" },
     { icon: Award, label: "Credibility", path: "/dashboard/credibility" },
     { icon: DollarSign, label: "Funding", path: "/dashboard/funding" },
+    { icon: Link2, label: "Integrations", path: "/dashboard/integrations" },
     { icon: Settings, label: "Settings", path: "/dashboard/settings" },
   ]
 
@@ -42,10 +68,20 @@ export default function DashboardLayout() {
 
   return (
     <div className="flex h-screen bg-white">
+      {/* Mobile Overlay */}
+      {isMobile && sidebarOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-40" />
+      )}
+      
       {/* Sidebar */}
       <div
+        ref={sidebarRef}
         className={`${
-          sidebarOpen ? "w-64" : "w-20"
+          isMobile 
+            ? `fixed left-0 top-0 h-full w-64 z-50 transform transition-transform duration-300 ${
+                sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+              }`
+            : sidebarOpen ? "w-64" : "w-20"
         } bg-white border-r border-[#e7d8c9] transition-all duration-300 flex flex-col`}
       >
         {/* Logo */}
@@ -106,11 +142,21 @@ export default function DashboardLayout() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top Bar */}
-        <div className="bg-white border-b border-[#e7d8c9] px-8 py-4 flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-[#333333]">Dashboard</h1>
+        <div className="bg-white border-b border-[#e7d8c9] px-4 md:px-8 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            {isMobile && (
+              <button 
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+                className="text-[#b2967d] hover:text-[#333333] md:hidden"
+              >
+                <Menu size={24} />
+              </button>
+            )}
+            <h1 className="text-xl md:text-2xl font-bold text-[#333333]">Dashboard</h1>
+          </div>
           <div className="flex items-center gap-4">
             <button className="w-10 h-10 bg-[var(--primary)] rounded-full flex items-center justify-center text-[#333333] font-bold">
-              SC
+              {initials}
             </button>
           </div>
         </div>

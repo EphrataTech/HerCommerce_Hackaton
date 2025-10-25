@@ -10,6 +10,7 @@ import MarketingPage from "./pages/dashboard/MarketingPage"
 import CredibilityPage from "./pages/dashboard/CredibilityPage"
 import FundingPage from "./pages/dashboard/FundingPage"
 import SettingsPage from "./pages/dashboard/SettingsPage"
+import IntegrationsPage from "./pages/dashboard/IntegrationsPage"
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -44,6 +45,7 @@ function App() {
         <Route path="marketing" element={<MarketingPage />} />
         <Route path="credibility" element={<CredibilityPage />} />
         <Route path="funding" element={<FundingPage />} />
+        <Route path="integrations" element={<IntegrationsPage />} />
         <Route path="settings" element={<SettingsPage />} />
       </Route>
 

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 import { useUser } from '../context/UserContext'
+import Logo from '../components/Logo'
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -25,8 +26,7 @@ const Login = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <Link to="/" className="flex items-center">
-              <img src="/logo.png" alt="AdeyBiz" className="h-10 w-auto" />
-              <span className="ml-3 text-2xl font-bold text-primary-black">AdeyBiz</span>
+              <Logo size="lg" />
             </Link>
             <Link to="/" className="flex items-center text-secondary-mediumGray hover:text-primary-black">
               <ArrowLeft className="h-4 w-4 mr-2" />

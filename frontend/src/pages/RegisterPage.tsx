@@ -6,6 +6,7 @@ import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { useUser } from "../context/UserContext"
 import { Eye, EyeOff } from "lucide-react"
+import Logo from '../components/Logo'
 
 export default function RegisterPage({ setIsAuthenticated }: { setIsAuthenticated: (value: boolean) => void }) {
   const [showPassword, setShowPassword] = useState(false)
@@ -47,10 +48,7 @@ export default function RegisterPage({ setIsAuthenticated }: { setIsAuthenticate
       <header className="border-b border-[#e7d8c9] py-4 px-6">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-[#b2967d] rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold">A</span>
-            </div>
-            <span className="font-bold text-[#333333]">AdeyBiz</span>
+            <Logo size="md" />
           </Link>
         </div>
       </header>
