@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Save, Link as LinkIcon, Instagram, Facebook, Twitter } from 'lucide-react'
+import { Save, Link as LinkIcon, Instagram } from 'lucide-react'
 
 export default function IntegrationsPage() {
   const [formData, setFormData] = useState({

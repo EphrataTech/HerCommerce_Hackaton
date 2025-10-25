@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, Star, Users, TrendingUp, Shield, Sparkles, Globe, Award, Zap } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import Logo from '../components/Logo'
 
 const HomePage = () => {
