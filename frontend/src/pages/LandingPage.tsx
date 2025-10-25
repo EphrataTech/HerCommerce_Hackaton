@@ -1,13 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Star, Users, TrendingUp, Zap, ChevronLeft, ChevronRight } from "lucide-react";
+import Logo from '../components/Logo';
 
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  // State for the current slide index
-  const [currentSlide, setCurrentSlide] = useState(0); 
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    if (mobileMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [mobileMenuOpen]); 
 
   const integrationPartners = [
     {
@@ -65,23 +82,16 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-white text-brand-charcoal">
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 border-b bg-white/60 backdrop-blur-sm border-brand-nude-beige">
+      <nav ref={menuRef} className="sticky top-0 z-50 border-b bg-white/60 backdrop-blur-sm border-brand-nude-beige">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link
               to="/"
               className="flex items-center gap-3 transition hover:opacity-90"
             >
-              <img
-                src={encodeURI("/LOGO2.png")}
-                alt="AdeyBiz Hub logo"
-                className="object-cover rounded-lg shadow w-9 h-9"
-              />
-              <div>
-                <div className="text-lg font-bold">AdeyBiz</div>
-                <div className="text-xs text-brand-soft-brown -mt-0.5">
-                  for Habesha creators
-                </div>
+              <Logo size="md" className="shadow" />
+              <div className="text-xs text-brand-soft-brown">
+                for Habesha creators
               </div>
             </Link>
 

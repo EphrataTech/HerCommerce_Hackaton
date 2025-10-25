@@ -2,20 +2,45 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Save, Bell, Lock } from "lucide-react"
+import { useUser } from "../../context/UserContext"
 
 export default function SettingsPage() {
+  const { userName } = useUser()
   const [formData, setFormData] = useState({
-    firstName: "Sophia",
-    lastName: "Carter",
-    email: "sophia@example.com",
-    phone: "+1 (555) 123-4567",
-    businessName: "Sophia Fashion Design",
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    businessName: "",
     businessType: "Fashion & Retail",
-    website: "www.sophiafashion.com",
-    bio: "Handmade fashion designer specializing in traditional designs",
+    website: "",
+    bio: "",
   })
+
+  useEffect(() => {
+    // Load data from localStorage registration
+    const registeredUser = localStorage.getItem('adeyBizRegisteredUser')
+    if (registeredUser) {
+      try {
+        const userData = JSON.parse(registeredUser)
+        const nameParts = (userData.name || userName || '').split(' ')
+        setFormData({
+          firstName: nameParts[0] || '',
+          lastName: nameParts.slice(1).join(' ') || '',
+          email: userData.email || '',
+          phone: userData.phone || '',
+          businessName: userData.businessName || '',
+          businessType: "Fashion & Retail",
+          website: "",
+          bio: "",
+        })
+      } catch (error) {
+        console.error('Error loading user data:', error)
+      }
+    }
+  }, [userName])
 
   type NotificationKey = "emailNotifications" | "marketingEmails" | "weeklyReport" | "fundingAlerts"
 
